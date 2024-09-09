@@ -3,27 +3,27 @@ import { useTodo } from '../contexts/TodoContext';
 
 function TodoForm() {
 
-    const[todoMsg, setTodoMsg] = useState("")
+    const[todo, setTodo] = useState("")
     const {addTodo} = useTodo()
 
     const add = (e) => {
         e.preventDefault()
-        if(!todoMsg) return
-        addTodo({todoMsg:todoMsg, completed:false})
-        setTodoMsg("")
+        if(!todo) return
+        addTodo({todo:todo, completed:false})
+        setTodo("")
     }
 
   return (
-    <form onSubmit={add} className="flex gap-3">
+    <form onSubmit={add} className="flex gap-4 ">
         <input
             type="text"
-            placeholder="Your Todo..."
-            className="text-lg w-full border border-black/10 rounded-lg px-3 outline-none duration-150 placeholder:text-gray-700 text-black font-semibold py-1.5"
-            value={todoMsg}
-            onChange={e=>setTodoMsg(e.target.value)}
+            placeholder="Write Todo..."
+            className="w-full border border-black/10 rounded-lg px-3 outline-none duration-150 bg-white/20 p-3"
+            value={todo}
+            onChange={e=>setTodo(e.target.value)}
         />
-        <button type="submit" className="rounded-lg px-5 py-2 bg-blue-600 text-white text-lg">
-            ADD
+        <button type="submit" className="rounded-lg px-4 py-1 bg-green-600 text-white shrink-0">
+            Add
         </button>
     </form>
 );

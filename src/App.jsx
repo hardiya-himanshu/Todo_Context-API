@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './App.css'
 import { TodoProvider } from './contexts/TodoContext'
 import TodoForm from './components/TodoForm'
 import TodoItem from './components/TodoItem'
@@ -7,12 +8,12 @@ function App() {
 
   const[todos, setTodos] = useState([])
 
-  const addTodo=(todoMsg)=>{
-    setTodos((prev)=>[{id:Date.now(),...todoMsg},...prev])
+  const addTodo=(todo)=>{
+    setTodos((prev)=>[{id:Date.now(),...todo},...prev])
   }
 
-  const updateTodo = (id, todoMsg) => {
-    setTodos((prev)=>prev.map((prevTodo)=>(prevTodo.id===id?todoMsg:prevTodo)))
+  const updateTodo = (id, todo) => {
+    setTodos((prev)=>prev.map((prevTodo)=>(prevTodo.id===id?todo:prevTodo)))
   }
 
   const deleteTodo = (id) =>  {
@@ -36,20 +37,21 @@ function App() {
 
   return (
     <TodoProvider value={{todos,addTodo,deleteTodo,updateTodo,toggleComplete}}>
-            <div className="bg-blue-400 h-screen py-8 flex flex-col gap-y-4">
-                <div className="flex flex-col justify-between gap-5 bg-gray-800 w-full max-w-2xl mx-auto shadow-md rounded-lg p-4 text-white">
-                    <h1 className="text-3xl font-bold text-center p-3">TO-DO LIST</h1>
-                    <TodoForm/>
-                </div>
-                <div className='flex flex-col gap-5 bg-gray-800 w-full max-w-2xl mx-auto shadow-md rounded-lg'>
-                  <div className="flex flex-wrap ">
-                      {todos.map((todo)=>(
-                        <div key={todo.id}
-                        className='w-full'>
-                        <TodoItem todo={todo}/>
-                        </div>
-                      ))}
-                  </div>
+            <div className="bg-gray-700 min-h-screen py-8">
+                <div className="w-full max-w-2xl mx-auto shadow-2xl rounded-lg px-4 py-3 bg-gray-800 text-white">
+                    <h1 className="text-2xl font-bold text-center mb-8 mt-2">Your Todos Manager</h1>
+                    <div className="mb-4">
+                        <TodoForm/>
+                    </div>
+                    <div className="flex flex-wrap gap-y-3">
+                        {todos.map((todo)=>(
+                          <div key={todo.id}
+                          className='w-full'
+                          >
+                          <TodoItem todo={todo}/>
+                          </div>
+                        ))}
+                    </div>
                 </div>
             </div>
     </TodoProvider>
